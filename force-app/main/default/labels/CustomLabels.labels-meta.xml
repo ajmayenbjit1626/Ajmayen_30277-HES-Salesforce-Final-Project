@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <CustomLabels xmlns="http://soap.sforce.com/2006/04/metadata">
     <labels>
         <fullName>HES_Err_Effort_Required</fullName>
@@ -6,7 +6,8 @@
         <language>en_US</language>
         <protected>true</protected>
         <shortDescription>HES Effort Required Error</shortDescription>
-        <value>Enter an estimated effort above zero before assigning to an engineer.</value>
+        <value
+    >Enter an estimated effort above zero before assigning to an engineer.</value>
     </labels>
     <labels>
         <fullName>HES_Err_Negotiation_Lines</fullName>
@@ -14,7 +15,8 @@
         <language>en_US</language>
         <protected>true</protected>
         <shortDescription>HES Negotiation Lines Error</shortDescription>
-        <value>Add at least one equipment line before moving to Negotiation.</value>
+        <value
+    >Add at least one equipment line before moving to Negotiation.</value>
     </labels>
     <labels>
         <fullName>HES_Generic_Error</fullName>
@@ -22,7 +24,8 @@
         <language>en_US</language>
         <protected>true</protected>
         <shortDescription>HES Generic Error</shortDescription>
-        <value>Something went wrong while saving. Please try again or contact your administrator.</value>
+        <value
+    >Something went wrong while saving. Please try again or contact your administrator.</value>
     </labels>
     <labels>
         <fullName>HES_Msg_No_Coverage_Access</fullName>
@@ -38,7 +41,8 @@
         <language>en_US</language>
         <protected>true</protected>
         <shortDescription>HES Unscheduled  Message</shortDescription>
-        <value>This engineer is not scheduled, so no work has been planned.</value>
+        <value
+    >This engineer is not scheduled, so no work has been planned.</value>
     </labels>
     <labels>
         <fullName>Coverage_activation_failed</fullName>
@@ -46,7 +50,8 @@
         <language>en_US</language>
         <protected>true</protected>
         <shortDescription>Coverage activation failed</shortDescription>
-        <value>This plan could not be activated because its equipment could not be updated. Please try again or contact your administrator.</value>
+        <value
+    >This plan could not be activated because its equipment could not be updated. Please try again or contact your administrator.</value>
     </labels>
     <labels>
         <fullName>HES_Duplicate_case_skill</fullName>
@@ -62,7 +67,8 @@
         <language>en_US</language>
         <protected>true</protected>
         <shortDescription>Nightly roll-forward failed</shortDescription>
-        <value>Nightly roll-forward of work segments failed. See the task description for details.</value>
+        <value
+    >Nightly roll-forward of work segments failed. See the task description for details.</value>
     </labels>
     <labels>
         <fullName>HES_Lbl_Needs_Replanning</fullName>
@@ -109,15 +115,18 @@
         <fullName>HES_AI_Draft_Failed</fullName>
         <language>en_US</language>
         <protected>false</protected>
-        <shortDescription>AI-02: shown when the reply draft fails</shortDescription>
-        <value>The reply draft could not be created. Please try again later or write the reply manually.</value>
+        <shortDescription
+    >AI-02: shown when the reply draft fails</shortDescription>
+        <value
+    >The reply draft could not be created. Please try again later or write the reply manually.</value>
     </labels>
     <labels>
         <fullName>HES_AI_Draft_Review</fullName>
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>AI-02: hint above the reply draft</shortDescription>
-        <value>Review and edit this draft, then copy it into your email to the customer. Nothing has been sent.</value>
+        <value
+    >Review and edit this draft, then copy it into your email to the customer. Nothing has been sent.</value>
     </labels>
     <labels>
         <fullName>HES_AI_Draft_Field</fullName>
@@ -131,23 +140,47 @@
         <fullName>HES_Agent_Case_Created</fullName>
         <language>en_US</language>
         <protected>false</protected>
-        <shortDescription>AI-07: agent confirmation after creating a case</shortDescription>
+        <shortDescription
+    >AI-07: agent confirmation after creating a case</shortDescription>
         <value>Case {0} has been created and sent to the service team.</value>
     </labels>
     <labels>
         <fullName>HES_Err_Generic</fullName>
         <language>en_US</language>
         <protected>false</protected>
-        <shortDescription>Generic error shown to users when an action fails</shortDescription>
-        <value>Something went wrong. Please try again or contact your administrator.</value>
+        <shortDescription
+    >Generic error shown to users when an action fails</shortDescription>
+        <value
+    >Something went wrong. Please try again or contact your administrator.</value>
     </labels>
 
         <labels>
         <fullName>HES_Agent_No_Article</fullName>
         <language>en_US</language>
         <protected>false</protected>
-        <shortDescription>AI-04: agent answer when no knowledge article matches</shortDescription>
-        <value>No Helios knowledge article matches this question. I can raise a new case so an engineer can help.</value>
+        <shortDescription
+    >AI-04: agent answer when no knowledge article matches</shortDescription>
+        <value
+    >No Helios knowledge article matches this question. I can raise a new case so an engineer can help.</value>
     </labels>
+     <labels>
+        <fullName>HES_Agent_Need_Serial</fullName>
+        <categories>HES,Agent</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>HES Agent Need Serial</shortDescription>
+        <value
+    >Open the case or equipment record, or give me the serial number (for example SN-4402), and I will check the coverage.</value>
+    </labels>
+    <labels>
+        <fullName>HES_Agent_Case_No_Equipment</fullName>
+        <categories>HES,Agent</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>HES Agent Case No Equipment</shortDescription>
+        <value
+    >This case has no equipment linked. Please give me the serial number (for example SN-4402).</value>
+    </labels>
+
 
 </CustomLabels>
