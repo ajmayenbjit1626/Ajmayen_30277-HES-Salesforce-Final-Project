@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Deal_Health__c</fullName>
+    <description>At Risk when an open opportunity has been open longer than HES Setting &gt; At Risk Days (SAL-04); otherwise Healthy.</description>
+    <externalId>false</externalId>
+    <formula>IF(
+  AND(
+    NOT(IsClosed),
+    TODAY() - DATEVALUE(CreatedDate) &gt; $CustomMetadata.HES_Setting__mdt.Default.At_Risk_Days__c
+  ),
+  &quot;At Risk&quot;,
+  &quot;Healthy&quot;
+)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <inlineHelpText>Based on how many days the deal has been open. At Risk deals need attention in the weekly review.</inlineHelpText>
+    <label>Deal Health</label>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

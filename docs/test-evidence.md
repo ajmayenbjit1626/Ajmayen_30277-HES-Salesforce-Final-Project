@@ -1,0 +1,23 @@
+## Scheduling engine � manual tests in the org (7-03 to 7-06, today = Mon 26/10/2026)
+
+| ID      | Scenario                    | Setup                                          | Expected                                                               | Result                                                  | Evidence                          |
+| ------- | --------------------------- | ---------------------------------------------- | ---------------------------------------------------------------------- | ------------------------------------------------------- | --------------------------------- |
+| CAP-T1  | A1 fill and spill           | 11 h, queue -> admin (8 h)                     | 26/10 8 h, 27/10 3 h, Planned 11, Scheduled                            | Pass (00001063)                                         | CAP/test1-A1.png                  |
+| CAP-T2  | A2 partially booked         | 2nd 11 h case, same engineer                   | 27/10 5 h, 28/10 6 h; first case unchanged                             | Pass (00001064)                                         | CAP/test2-A2.png                  |
+| CAP-T3  | Weekend skip                | 20 h                                           | 28/10 2, 29/10 8, 30/10 8, no Sat/Sun, 02/11 2                         | Pass (00001065)                                         | CAP/test3-weekend.png             |
+| CAP-T4  | A3 + A7 holiday and horizon | 600 h -> Eric                                  | 43 segments, 344 h, last 23/12, none on 24/12, Unplaceable             | Pass                                                    | CAP/test4-horizon-unplaceable.png |
+| CAP-T4b | Closure cleanup             | Close the 600 h case                           | Only 26/10 (today) kept                                                | Pass                                                    | CAP/test4b-closure.png            |
+| CAP-T5  | A4 part-time                | Eric 6 h, 11 h case                            | 27/10 6 h, 28/10 5 h                                                   | Pass                                                    | CAP/test5-parttime.png            |
+| CAP-T6  | CAP-01 not scheduled        | Eric Is Scheduled off                          | Saves, 0 segments, Unscheduled                                         | Pass                                                    | CAP/test6-not-scheduled.png       |
+| CAP-T7  | CAP-02 unrelated edit       | Subject change on T2                           | Same segments, same WS numbers                                         | Pass                                                    | CAP/test7-subject-edit.png        |
+| CAP-T8  | Queue not planned           | Effort set while owner is a queue              | 0 segments                                                             | Pass (step B of every test)                             |                                   |
+| CAP-T9  | SVC-02 before planning      | No effort -> engineer                          | Blocked with message                                                   | Pass                                                    | CAP/test9-blocked.png             |
+| CAP-L1  | CAP-07 bulk limits (7-04)   | 50 cases reassigned in one update, rolled back | SOQL and DML constant for N=1 and N=50                                 | Pass: N=50 SOQL 8, DML 3, CPU 259 ms; N=1 SOQL 8, DML 3 | scripts/apex/bulk-test.apex       |
+| CAP-R1  | A5 reassignment (7-06)      | 00001063 admin -> Eric                         | 26/10 8 h stays with admin; 27/10 3 h removed; 3 h planned for Eric    | Pass                                                    | CAP/7-06-A5.png                   |
+| CAP-R2  | Closure (7-06)              | Close 00001063                                 | Only 26/10 kept; Eric's future segments removed; other cases unchanged | Pass                                                    | CAP/7-06-closure.png              |
+| CAP-R3  | Effort change (7-06)        | 00001064: 11 -> 6 -> 14                        | 6: one day; 14: 27/10 8, 28/10 6; other cases unchanged                | Pass                                                    | CAP/7-06-effort.png               |
+
+Defect found and fixed during testing: horizon allowed 61 days; fixed to `addDays(horizon - 1)` (commit [WBS:7-03] fix(CAP-03)).
+| QA-02 | All local Apex tests (27/10/2026) | RunLocalTests | 17/17 pass, 100% coverage | Pass | CAP/all-tests-27-10-2026.txt |
+
+AN-02-1 | Summary report (9-02) | Cases, Technical, last 12 months, grouped region > month | Covered % per group via summary formula (Benelux Oct 2026: 6 / 672 = 1%) | Pass | evidence/AN-02-covered.png |

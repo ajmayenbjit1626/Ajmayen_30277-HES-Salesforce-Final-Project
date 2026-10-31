@@ -1,0 +1,22 @@
+<template>
+    <lightning-card title="Schedule" icon-name="standard:event">
+        <div class="slds-p-horizontal_small">
+            <template lwc:if={status}><lightning-badge label={status}></lightning-badge></template>
+            <template lwc:if={needsReplanning}><lightning-badge label={labels.needsReplanning}></lightning-badge></template>
+            <template lwc:if={start}><p class="slds-m-top_x-small">{start} &#8594; {finish}</p></template>
+            <template lwc:if={errorMessage}><p class="slds-text-color_error">{errorMessage}</p></template>
+            <template lwc:if={hasSegments}>
+                <ul class="slds-m-top_small">
+                    <template for:each={segments} for:item="s">
+                        <li key={s.id} class="row">
+                            <span class="date">{s.date}</span>
+                            <span class="track"><span class={s.cls} style={s.barStyle}></span></span>
+                            <span>{s.hours} h · {s.engineer}</span>
+                        </li>
+                    </template>
+                </ul>
+            </template>
+            <template lwc:else><p class="slds-m-top_small empty">{labels.noWorkPlanned}</p></template>
+        </div>
+    </lightning-card>
+</template>

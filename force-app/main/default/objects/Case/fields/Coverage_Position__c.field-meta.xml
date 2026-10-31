@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Coverage_Position__c</fullName>
+    <description>Coverage of the case&apos;s equipment (Covered, Expired or Not Covered), read live from Equipment Coverage Position. Never written by automation (SVC-03).</description>
+    <externalId>false</externalId>
+    <formula>IF( ISBLANK(Equipment__c),
+       &quot;Not Covered&quot;,
+       Equipment__r.Coverage_Position__c )</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <inlineHelpText>Shows whether the visit is covered by the customer&apos;s plan. Not Covered when no equipment is linked.</inlineHelpText>
+    <label>Coverage Position</label>
+    <required>false</required>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

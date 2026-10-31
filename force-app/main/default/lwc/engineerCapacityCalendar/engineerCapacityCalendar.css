@@ -1,0 +1,5 @@
+.cell { width: 100%; padding: 0.25rem 0.5rem; border: 1px solid #c9c9c9; border-radius: 0.25rem; background: #ffffff; cursor: pointer; }
+.cell:focus { outline: 2px solid #0176d3; }
+.cell_part { background: #fef1d9; }
+.cell_full { background: #fddde1; }
+.cell_off  { background: #f3f3f3; color: #706e6b; }

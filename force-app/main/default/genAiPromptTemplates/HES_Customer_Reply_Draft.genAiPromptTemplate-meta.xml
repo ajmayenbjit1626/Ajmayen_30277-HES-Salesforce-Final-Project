@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GenAiPromptTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <activeVersionIdentifier>NgFUAWv91J5KAwRC674qYQPF1yO3W5EPOnWMN0CSDkw=_3</activeVersionIdentifier>
+    <description>AI-02: Drafts a short customer reply for a service case (case number, equipment, coverage, planned visit). Called from the Draft Customer Reply flow and from ReplyDraftService Apex. Draft only; an agent reviews and sends.</description>
+    <developerName>HES_Customer_Reply_Draft</developerName>
+    <masterLabel>HES Customer Reply Draft</masterLabel>
+    <overridable>false</overridable>
+    <templateVersions>
+        <content>You are a customer service agent at Helios Equipment Services.
+Write a short, friendly email reply to the customer about this service case.
+- Greet the contact by first name.
+- Mention the case number and the equipment.
+- If coverage is &quot;Covered&quot;, say the work is included in their coverage plan.
+- If coverage is &quot;Expired&quot; or &quot;Not Covered&quot;, say politely that the work will be charged and offer to send a quote.
+- If a planned visit date is given, mention it; if it is empty, say a planner will confirm the visit date. Never invent a date.
+- Maximum 120 words. End with &quot;Kind regards, Helios Equipment Services&quot;. No subject line.
+
+Contact first name: {!$Input:Case.Contact.FirstName}
+Case number: {!$Input:Case.CaseNumber}
+Subject: {!$Input:Case.Subject}
+Equipment: {!$Input:Case.Equipment__r.Name}
+Coverage: {!$Input:Case.Equipment__r.Coverage_Position__c}
+Planned visit: {!$Input:Case.Planned_Start__c}
+</content>
+        <fileDroppingStrategy>{&quot;dropFilesBy&quot;:&quot;LAST_MODIFIED_DATE&quot;,&quot;dropFileStartingWith&quot;:&quot;OLDEST&quot;}</fileDroppingStrategy>
+        <inputs>
+            <apiName>Case</apiName>
+            <definition>SOBJECT://Case</definition>
+            <masterLabel>Case</masterLabel>
+            <referenceName>Input:Case</referenceName>
+            <required>true</required>
+        </inputs>
+        <isCitationEnabled>false</isCitationEnabled>
+        <primaryModel>sfdc_ai__DefaultGPT5Mini</primaryModel>
+        <status>Published</status>
+        <versionIdentifier>NgFUAWv91J5KAwRC674qYQPF1yO3W5EPOnWMN0CSDkw=_1</versionIdentifier>
+    </templateVersions>
+    <templateVersions>
+        <content>You are a customer service agent at Helios Equipment Services.
+Write a short, friendly email reply to the customer about this service case.
+- Greet the contact by first name.
+- Mention the case number and the equipment.
+- If coverage is &quot;Covered&quot;, say the work is included in their coverage plan.
+- If coverage is &quot;Expired&quot; or &quot;Not Covered&quot;, say politely that the work will be charged and offer to send a quote.
+- If a planned visit date is given, mention it; if it is empty, say a planner will confirm the visit date. Never invent a date.
+- Maximum 120 words. End with &quot;Kind regards, Helios Equipment Services&quot;. No subject line.
+
+Contact first name: {!$Input:Case.Contact.FirstName}
+Case number: {!$Input:Case.CaseNumber}
+Subject: {!$Input:Case.Subject}
+Equipment: {!$Input:Case.Equipment__r.Name}
+Coverage: {!$Input:Case.Equipment__r.Coverage_Position__c}
+Planned visit: {!$Input:Case.Planned_Start__c}
+</content>
+        <fileDroppingStrategy>{&quot;dropFilesBy&quot;:&quot;LAST_MODIFIED_DATE&quot;,&quot;dropFileStartingWith&quot;:&quot;OLDEST&quot;}</fileDroppingStrategy>
+        <inputs>
+            <apiName>Case</apiName>
+            <definition>SOBJECT://Case</definition>
+            <masterLabel>Case</masterLabel>
+            <referenceName>Input:Case</referenceName>
+            <required>true</required>
+        </inputs>
+        <isCitationEnabled>false</isCitationEnabled>
+        <primaryModel>sfdc_ai__DefaultGPT5Mini</primaryModel>
+        <status>Draft</status>
+        <templateFormat>FormulaExpression</templateFormat>
+        <versionIdentifier>NgFUAWv91J5KAwRC674qYQPF1yO3W5EPOnWMN0CSDkw=_2</versionIdentifier>
+    </templateVersions>
+    <templateVersions>
+        <content>You are a customer service agent at Helios Equipment Services.
+Write a short, friendly email reply to the customer about this service case.
+- Start with &quot;Dear &lt;contact first name&gt;,&quot; on its own line.
+- Mention the case number and the equipment.
+- If coverage is &quot;Covered&quot;, say the work is included in their coverage plan.
+- If coverage is &quot;Expired&quot; or &quot;Not Covered&quot;, say politely that the work will be charged and offer to send a quote.
+- If the planned visit is empty or looks like a placeholder in square brackets, write only &quot;A planner will contact you to confirm the visit date.&quot; Never copy text in square brackets and never invent a date.
+- No filler sentences. Maximum 120 words.
+- End with &quot;Kind regards,&quot; and on the next line &quot;Helios Equipment Services&quot;.
+
+Contact first name: {!$Input:Case.Contact.FirstName}
+Case number: {!$Input:Case.CaseNumber}
+Subject: {!$Input:Case.Subject}
+Equipment: {!$Input:Case.Equipment__r.Name}
+Coverage: {!$Input:Case.Equipment__r.Coverage_Position__c}
+Planned visit: {!$Input:Case.Planned_Start__c}
+</content>
+        <fileDroppingStrategy>{&quot;dropFilesBy&quot;:&quot;LAST_MODIFIED_DATE&quot;,&quot;dropFileStartingWith&quot;:&quot;OLDEST&quot;}</fileDroppingStrategy>
+        <inputs>
+            <apiName>Case</apiName>
+            <definition>SOBJECT://Case</definition>
+            <masterLabel>Case</masterLabel>
+            <referenceName>Input:Case</referenceName>
+            <required>true</required>
+        </inputs>
+        <isCitationEnabled>false</isCitationEnabled>
+        <primaryModel>sfdc_ai__DefaultGPT5Mini</primaryModel>
+        <status>Published</status>
+        <templateFormat>FormulaExpression</templateFormat>
+        <versionIdentifier>NgFUAWv91J5KAwRC674qYQPF1yO3W5EPOnWMN0CSDkw=_3</versionIdentifier>
+    </templateVersions>
+    <type>einstein_gpt__flex</type>
+    <visibility>Global</visibility>
+</GenAiPromptTemplate>

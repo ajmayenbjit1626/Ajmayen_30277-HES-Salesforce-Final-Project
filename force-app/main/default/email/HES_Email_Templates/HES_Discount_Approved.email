@@ -1,0 +1,7 @@
+Hello {!Opportunity.OwnerFirstName},
+
+Your discount of {!Opportunity.Discount__c} on {!Opportunity.Name} ({!Opportunity.Account}) has been approved. The opportunity is unlocked and you can continue with the proposal.
+
+Open the opportunity: {!Opportunity.Link}
+
+Helios Equipment Services

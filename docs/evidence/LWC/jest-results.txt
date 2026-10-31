@@ -1,0 +1,18 @@
+﻿
+> salesforce-app@1.0.0 test:unit
+> sfdx-lwc-jest
+
+node.exe : PASS force-app/main/default/lwc/engineerCapacityCalendar/__tests__/engineerCapacityCalendar.test.js
+At C:\Program Files\nodejs\npm.ps1:29 char:3
++   & $NODE_EXE $NPM_CLI_JS $args
++   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (PASS force-app/...alendar.test.js:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+PASS force-app/main/default/lwc/caseScheduleTimeline/__tests__/caseScheduleTimeline.test.js
+
+Test Suites: 2 passed, 2 total
+Tests:       10 passed, 10 total
+Snapshots:   0 total
+Time:        11.358 s
+Ran all test suites.

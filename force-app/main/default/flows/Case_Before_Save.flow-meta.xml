@@ -1,0 +1,314 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>68.0</apiVersion>
+    <areMetricsLoggedToDataCloud>false</areMetricsLoggedToDataCloud>
+    <assignments>
+        <description>ACC-02-R1: Case.Region__c = Account.Region__c; used by the regional case sharing rules.</description>
+        <name>Copy_Region_from_Account</name>
+        <label>Copy Region from Account</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.Region__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>$Record.Account.Region__c</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>What_Happened</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <description>Closes the case with Reason Junk so no queue, acknowledgement or dispatcher sees it (INT-06).</description>
+        <name>Mark_As_Junk</name>
+        <label>Mark As Junk</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.Status</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>Closed</stringValue>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>$Record.Reason</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>Junk</stringValue>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Loop_Rules</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <description>Puts a reopened case back to unscheduled and flags it for the dispatcher; clears the old planned dates (SVC-06).</description>
+        <name>Mark_For_Replanning</name>
+        <label>Mark For Replanning</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.Schedule_Status__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <stringValue>Unscheduled</stringValue>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>$Record.Needs_Replanning__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>$Record.Planned_Start__c</assignToReference>
+            <operator>Assign</operator>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>$Record.Planned_Finish__c</assignToReference>
+            <operator>Assign</operator>
+        </assignmentItems>
+        <connector>
+            <targetReference>END_ELEMENT_1</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <description>If the junk rules cannot be read, keep the case and add a note so the dispatcher can see why it was not checked.</description>
+        <name>Note_Junk_Check_Failure</name>
+        <label>Note Junk Check Failure</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <assignmentItems>
+            <assignToReference>$Record.Description</assignToReference>
+            <operator>Add</operator>
+            <value>
+                <stringValue>      [Junk check skipped: {!$Flow.FaultMessage}]</stringValue>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>END_ELEMENT_2</targetReference>
+        </connector>
+    </assignments>
+    <decisions>
+        <description>Checks whether the current junk rule matches this case.</description>
+        <name>Matches</name>
+        <label>Matches?</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <defaultConnector>
+            <targetReference>Loop_Rules</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Not Junk</defaultConnectorLabel>
+        <rules>
+            <name>Is_Junk</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>fxMatches</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Mark_As_Junk</targetReference>
+            </connector>
+            <label>Is Junk</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <description>ACC-02-R1: copy the account&apos;s region onto the case when the account changes or the region is still empty.</description>
+        <name>Region_Needs_Setting</name>
+        <label>Region Needs Setting</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <defaultConnector>
+            <targetReference>What_Happened</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Region OK</defaultConnectorLabel>
+        <rules>
+            <name>Set_Region</name>
+            <conditionLogic>or</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.AccountId</leftValueReference>
+                <operator>IsChanged</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Region__c</leftValueReference>
+                <operator>IsNull</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Copy_Region_from_Account</targetReference>
+            </connector>
+            <label>Set Region</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <description>Routes new cases to the junk check. A Reopened outcome is added in 6-07.</description>
+        <name>What_Happened</name>
+        <label>What Happened?</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <defaultConnector>
+            <targetReference>END_ELEMENT_1</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Other</defaultConnectorLabel>
+        <rules>
+            <name>New_Case</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>fxIsNew</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Get_Junk_Rules</targetReference>
+            </connector>
+            <label>New Case</label>
+        </rules>
+        <rules>
+            <name>Reopened</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>fxReopened</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Mark_For_Replanning</targetReference>
+            </connector>
+            <label>Reopened</label>
+        </rules>
+    </decisions>
+    <description>Version: adds Case Region from Account (ACC-02-R1).</description>
+    <ends>
+        <name>END_ELEMENT_1</name>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+    </ends>
+    <ends>
+        <name>END_ELEMENT_2</name>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+    </ends>
+    <environments>Default</environments>
+    <formulas>
+        <description>True when the case is being created.</description>
+        <name>fxIsNew</name>
+        <dataType>Boolean</dataType>
+        <expression>ISNEW()</expression>
+    </formulas>
+    <formulas>
+        <description>True when the current junk rule&apos;s value is found in the chosen case field (case-insensitive).</description>
+        <name>fxMatches</name>
+        <dataType>Boolean</dataType>
+        <expression>NOT(ISBLANK({!Loop_Rules.Match_Value__c})) &amp;&amp;
+     OR(
+       AND(TEXT({!Loop_Rules.Field_To_Check__c}) = &quot;Subject&quot;,
+           CONTAINS(LOWER({!$Record.Subject}), LOWER({!Loop_Rules.Match_Value__c}))),
+       AND(TEXT({!Loop_Rules.Field_To_Check__c}) = &quot;Supplied Email&quot;,
+           CONTAINS(LOWER({!$Record.SuppliedEmail}), LOWER({!Loop_Rules.Match_Value__c}))),
+       AND(TEXT({!Loop_Rules.Field_To_Check__c}) = &quot;Description&quot;,
+           CONTAINS(LOWER({!$Record.Description}), LOWER({!Loop_Rules.Match_Value__c})))
+     )</expression>
+    </formulas>
+    <formulas>
+        <description>True when a closed Technical case is being reopened.</description>
+        <name>fxReopened</name>
+        <dataType>Boolean</dataType>
+        <expression>AND(
+  NOT(ISNEW()),
+  {!$Record__Prior.IsClosed},
+  TEXT({!$Record.Status}) &lt;&gt; &quot;Closed&quot;,
+  {!$Record.RecordType.DeveloperName} = &quot;Technical&quot;
+)</expression>
+    </formulas>
+    <interviewLabel>Case Before Save {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Case Before Save</label>
+    <loops>
+        <description>Checks the case against each active junk rule.</description>
+        <name>Loop_Rules</name>
+        <label>Loop Rules</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <collectionReference>Get_Junk_Rules</collectionReference>
+        <iterationOrder>Asc</iterationOrder>
+        <nextValueConnector>
+            <targetReference>Matches</targetReference>
+        </nextValueConnector>
+        <noMoreValuesConnector>
+            <targetReference>END_ELEMENT_1</targetReference>
+        </noMoreValuesConnector>
+    </loops>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordLookups>
+        <description>Reads all active Junk Rule custom metadata records.</description>
+        <name>Get_Junk_Rules</name>
+        <label>Get Junk Rules</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Loop_Rules</targetReference>
+        </connector>
+        <faultConnector>
+            <targetReference>Note_Junk_Check_Failure</targetReference>
+        </faultConnector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Active__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <booleanValue>true</booleanValue>
+            </value>
+        </filters>
+        <getFirstRecordOnly>false</getFirstRecordOnly>
+        <object>Junk_Rule__mdt</object>
+        <queriedFields>Id</queriedFields>
+        <queriedFields>Field_To_Check__c</queriedFields>
+        <queriedFields>Match_Value__c</queriedFields>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <start>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Region_Needs_Setting</targetReference>
+        </connector>
+        <filterFormula>OR( ISNEW(), ISCHANGED({!$Record.Status}) )</filterFormula>
+        <object>Case</object>
+        <recordTriggerType>CreateAndUpdate</recordTriggerType>
+        <triggerType>RecordBeforeSave</triggerType>
+    </start>
+    <status>Active</status>
+</Flow>

@@ -1,0 +1,15 @@
+﻿
+Execute Anonymous: System.debug('COUNT >>> accounts ' + accounts.size()
+Execute Anonymous:     System.debug('COUNT >>> cases in ' + r.get('region') + ': ' + r.get('n'));
+Execute Anonymous:     System.debug('COUNT >>> equipment ' + pos + ': ' + byPosition.get(pos));
+14:52:53.112 (280623130)|USER_DEBUG|[3]|DEBUG|COUNT >>> accounts 25 &#124; contacts 60 &#124; products 30 &#124; equipment 120 &#124; plans 30 &#124; opportunities 40 &#124; 
+cases 250 &#124; articles 10
+14:52:53.112 (312532698)|USER_DEBUG|[12]|DEBUG|COUNT >>> cases in Nordics: 58
+14:52:53.112 (312581648)|USER_DEBUG|[12]|DEBUG|COUNT >>> cases in Benelux: 77
+14:52:53.112 (312613729)|USER_DEBUG|[12]|DEBUG|COUNT >>> cases in DACH: 56
+14:52:53.112 (312633199)|USER_DEBUG|[12]|DEBUG|COUNT >>> cases in UK & Ireland: 49
+14:52:53.112 (331012421)|USER_DEBUG|[20]|DEBUG|COUNT >>> equipment Covered: 69
+14:52:53.112 (331037072)|USER_DEBUG|[20]|DEBUG|COUNT >>> equipment Expired: 10
+14:52:53.112 (331046282)|USER_DEBUG|[20]|DEBUG|COUNT >>> equipment Not Covered: 41
+
+

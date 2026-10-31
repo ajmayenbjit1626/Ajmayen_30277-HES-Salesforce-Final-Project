@@ -1,0 +1,7 @@
+Hello {!Opportunity.OwnerFirstName},
+
+Your discount of {!Opportunity.Discount__c} on {!Opportunity.Name} ({!Opportunity.Account}) was not approved. The opportunity is unlocked: adjust the discount and resubmit, or speak to your manager.
+
+Open the opportunity: {!Opportunity.Link}
+
+Helios Equipment Services

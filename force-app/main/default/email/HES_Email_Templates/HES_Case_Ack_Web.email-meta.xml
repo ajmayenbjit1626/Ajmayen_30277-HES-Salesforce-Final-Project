@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Acknowledgement for cases submitted through the website service form (INT-04). Sent by the HES Case Ack Web alert; never for junk.</description>
+    <encodingKey>UTF-8</encodingKey>
+    <name>HES Case Ack Web</name>
+    <style>none</style>
+    <subject>We have received your service request - Case {!Case.CaseNumber}</subject>
+    <type>text</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

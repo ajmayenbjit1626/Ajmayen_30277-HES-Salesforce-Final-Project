@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Sent to the opportunity owner when the discount is approved (SAL-05)</description>
+    <encodingKey>UTF-8</encodingKey>
+    <name>HES Discount Approved</name>
+    <style>none</style>
+    <subject>Discount approved: {!Opportunity.Name}</subject>
+    <type>text</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

@@ -1,0 +1,15 @@
+Hello {!Case.SuppliedName},
+
+Your service request "{!Case.Subject}" (case {!Case.CaseNumber}) has been completed and closed.
+
+We would like to know how we did. Please reply to this email with a score from 1 to 5:
+5 = Excellent, 4 = Good, 3 = Acceptable, 2 = Poor, 1 = Very poor
+
+You are welcome to add a short comment as well.
+
+If the problem has come back, simply reply and tell us, and we will reopen your case.
+
+Thank you for choosing Helios Equipment Services.
+
+Kind regards,
+Helios Service Desk

@@ -1,0 +1,10 @@
+Hello {!Case.SuppliedName},
+
+Thank you for contacting Helios Equipment Services. We have received your email and logged it as case {!Case.CaseNumber}:
+
+"{!Case.Subject}"
+
+A service dispatcher will review it and plan an engineer if a visit is needed. To add details or photos, simply reply to this email and keep the case number in the subject.
+
+Kind regards,
+Helios Service Desk

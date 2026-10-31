@@ -1,0 +1,442 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>68.0</apiVersion>
+    <areMetricsLoggedToDataCloud>false</areMetricsLoggedToDataCloud>
+    <assignments>
+        <description>Builds one Equipment record for the current unit, adds it to the list and counts it.</description>
+        <name>Add_Unit</name>
+        <label>Add Unit</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <assignmentItems>
+            <assignToReference>varEquipment.Name</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>fxUnitName</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>varEquipment.Account__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>$Record.AccountId</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>varEquipment.Product__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>For_Each_Line.Product2Id</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>varEquipment.Opportunity__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>colEquipment</assignToReference>
+            <operator>Add</operator>
+            <value>
+                <elementReference>varEquipment</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>varCounter</assignToReference>
+            <operator>Add</operator>
+            <value>
+                <numberValue>1.0</numberValue>
+            </value>
+        </assignmentItems>
+        <connector>
+            <isGoTo>true</isGoTo>
+            <targetReference>More_Units</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <description>Links the current unit to the new draft coverage plan and adds the link to the list.</description>
+        <name>Build_Link</name>
+        <label>Build Link</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <assignmentItems>
+            <assignToReference>varLink.Equipment__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>For_Each_Unit.Id</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>varLink.Coverage_Plan__c</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <elementReference>Create_Draft_Plan.Id</elementReference>
+            </value>
+        </assignmentItems>
+        <assignmentItems>
+            <assignToReference>colLinks</assignToReference>
+            <operator>Add</operator>
+            <value>
+                <elementReference>varLink</elementReference>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>For_Each_Unit</targetReference>
+        </connector>
+    </assignments>
+    <assignments>
+        <description>Starts counting units from 0 for each product line.</description>
+        <name>Reset_Counter</name>
+        <label>Reset Counter</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <assignmentItems>
+            <assignToReference>varCounter</assignToReference>
+            <operator>Assign</operator>
+            <value>
+                <numberValue>0.0</numberValue>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>More_Units</targetReference>
+        </connector>
+    </assignments>
+    <customErrors>
+        <description>Stops the Closed Won save and tells the user why, so a deal is never won without its equipment.</description>
+        <name>Show_Save_Error</name>
+        <label>Show Save Error</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>END_ELEMENT_4</targetReference>
+        </connector>
+        <customErrorMessages>
+            <errorMessage>{!ttSaveError}</errorMessage>
+            <isFieldError>false</isFieldError>
+        </customErrorMessages>
+    </customErrors>
+    <decisions>
+        <description>Only create a coverage plan when at least one Equipment record was created.</description>
+        <name>Any_Equipment</name>
+        <label>Any Equipment?</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <defaultConnector>
+            <targetReference>END_ELEMENT_1</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>No - Nothing Sold</defaultConnectorLabel>
+        <rules>
+            <name>Yes_Has_Equipment</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>colEquipment</leftValueReference>
+                <operator>IsEmpty</operator>
+                <rightValue>
+                    <booleanValue>false</booleanValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Create_Draft_Plan</targetReference>
+            </connector>
+            <label>Yes - Has Equipment</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <description>Checks whether another Equipment record is needed for this line (one per unit of Quantity).</description>
+        <name>More_Units</name>
+        <label>More Units?</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <defaultConnector>
+            <targetReference>For_Each_Line</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>No - Line Done</defaultConnectorLabel>
+        <rules>
+            <name>Yes_Build_Unit</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>varCounter</leftValueReference>
+                <operator>LessThan</operator>
+                <rightValue>
+                    <elementReference>For_Each_Line.Quantity</elementReference>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Add_Unit</targetReference>
+            </connector>
+            <label>Yes - Build Unit</label>
+        </rules>
+    </decisions>
+    <description>Fix: loop back to More Units? so one Equipment is created per unit</description>
+    <ends>
+        <name>END_ELEMENT_1</name>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+    </ends>
+    <ends>
+        <name>END_ELEMENT_4</name>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+    </ends>
+    <environments>Default</environments>
+    <formulas>
+        <description>Coverage plan end date: 12 months after the Close Date, minus one day.</description>
+        <name>fxEnd</name>
+        <dataType>Date</dataType>
+        <expression>ADDMONTHS({!$Record.CloseDate}, 12) - 1</expression>
+    </formulas>
+    <formulas>
+        <description>Coverage plan start date: the date the deal was won (Close Date).</description>
+        <name>fxStart</name>
+        <dataType>Date</dataType>
+        <expression>{!$Record.CloseDate}</expression>
+    </formulas>
+    <formulas>
+        <description>Equipment name: the product line name plus the unit number, max 80 characters.</description>
+        <name>fxUnitName</name>
+        <dataType>String</dataType>
+        <expression>LEFT({!For_Each_Line.Name} &amp; &quot; - Unit &quot; &amp; TEXT({!varCounter} + 1), 80)</expression>
+    </formulas>
+    <interviewLabel>Opportunity After Save {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Opportunity After Save</label>
+    <loops>
+        <description>Goes through each product line of the won opportunity.</description>
+        <name>For_Each_Line</name>
+        <label>For Each Line</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <collectionReference>Get_Lines</collectionReference>
+        <iterationOrder>Asc</iterationOrder>
+        <nextValueConnector>
+            <targetReference>Reset_Counter</targetReference>
+        </nextValueConnector>
+        <noMoreValuesConnector>
+            <targetReference>Create_Equipment</targetReference>
+        </noMoreValuesConnector>
+    </loops>
+    <loops>
+        <description>Goes through every Equipment record just created.</description>
+        <name>For_Each_Unit</name>
+        <label>For Each Unit</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <collectionReference>colEquipment</collectionReference>
+        <iterationOrder>Asc</iterationOrder>
+        <nextValueConnector>
+            <targetReference>Build_Link</targetReference>
+        </nextValueConnector>
+        <noMoreValuesConnector>
+            <targetReference>Create_Links</targetReference>
+        </noMoreValuesConnector>
+    </loops>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordCreates>
+        <description>Creates a one-year draft coverage plan for the won deal&apos;s account (SAL-07).</description>
+        <name>Create_Draft_Plan</name>
+        <label>Create Draft Plan</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>For_Each_Unit</targetReference>
+        </connector>
+        <faultConnector>
+            <isGoTo>true</isGoTo>
+            <targetReference>Show_Save_Error</targetReference>
+        </faultConnector>
+        <inputAssignments>
+            <field>Account__c</field>
+            <value>
+                <elementReference>$Record.AccountId</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>End_Date__c</field>
+            <value>
+                <elementReference>fxEnd</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Opportunity__c</field>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Service_Level__c</field>
+            <value>
+                <stringValue>Standard</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Start_Date__c</field>
+            <value>
+                <elementReference>fxStart</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Status__c</field>
+            <value>
+                <stringValue>Draft</stringValue>
+            </value>
+        </inputAssignments>
+        <object>Coverage_Plan__c</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordCreates>
+    <recordCreates>
+        <description>Creates all Equipment records for the won deal in a single save (bulk-safe, SAL-06).</description>
+        <name>Create_Equipment</name>
+        <label>Create Equipment</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Any_Equipment</targetReference>
+        </connector>
+        <faultConnector>
+            <targetReference>Show_Save_Error</targetReference>
+        </faultConnector>
+        <inputReference>colEquipment</inputReference>
+    </recordCreates>
+    <recordCreates>
+        <description>Creates all Equipment Coverage links between the new units and the draft plan in one save (bulk-safe, SAL-07).</description>
+        <name>Create_Links</name>
+        <label>Create Links</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>END_ELEMENT_1</targetReference>
+        </connector>
+        <faultConnector>
+            <isGoTo>true</isGoTo>
+            <targetReference>Show_Save_Error</targetReference>
+        </faultConnector>
+        <inputReference>colLinks</inputReference>
+    </recordCreates>
+    <recordLookups>
+        <description>Gets the product lines of the won opportunity (one Equipment per unit is created from these).</description>
+        <name>Get_Lines</name>
+        <label>Get Lines</label>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>For_Each_Line</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>OpportunityId</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>false</getFirstRecordOnly>
+        <object>OpportunityLineItem</object>
+        <queriedFields>Id</queriedFields>
+        <queriedFields>Name</queriedFields>
+        <queriedFields>Quantity</queriedFields>
+        <queriedFields>Product2Id</queriedFields>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <start>
+        <locationX>0</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Get_Lines</targetReference>
+        </connector>
+        <doesRequireRecordChangedToMeetCriteria>true</doesRequireRecordChangedToMeetCriteria>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>StageName</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Closed Won</stringValue>
+            </value>
+        </filters>
+        <object>Opportunity</object>
+        <recordTriggerType>CreateAndUpdate</recordTriggerType>
+        <triggerType>RecordAfterSave</triggerType>
+    </start>
+    <status>Active</status>
+    <textTemplates>
+        <description>Error shown when Closed Won automation can&apos;t save: friendly label plus technical detail.</description>
+        <name>ttSaveError</name>
+        <isViewedAsPlainText>true</isViewedAsPlainText>
+        <text>{!$Label.HES_Generic_Error} Details: {!$Flow.FaultMessage}</text>
+    </textTemplates>
+    <variables>
+        <description>All Equipment records to create, saved in one Create Records (bulk-safe).</description>
+        <name>colEquipment</name>
+        <dataType>SObject</dataType>
+        <isCollection>true</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <objectType>Equipment__c</objectType>
+    </variables>
+    <variables>
+        <description>All Equipment Coverage links to create, saved in one Create Records (bulk-safe).</description>
+        <name>colLinks</name>
+        <dataType>SObject</dataType>
+        <isCollection>true</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <objectType>Equipment_Coverage__c</objectType>
+    </variables>
+    <variables>
+        <description>Counts the units created for the current product line.</description>
+        <name>varCounter</name>
+        <dataType>Number</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <scale>0</scale>
+        <value>
+            <numberValue>0.0</numberValue>
+        </value>
+    </variables>
+    <variables>
+        <description>The Equipment record being built for the current unit.</description>
+        <name>varEquipment</name>
+        <dataType>SObject</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <objectType>Equipment__c</objectType>
+    </variables>
+    <variables>
+        <description>The Equipment Coverage link being built for the current unit.</description>
+        <name>varLink</name>
+        <dataType>SObject</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <objectType>Equipment_Coverage__c</objectType>
+    </variables>
+    <variables>
+        <description>ID of the draft coverage plan created for the won deal.</description>
+        <name>varPlanId</name>
+        <dataType>String</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+</Flow>

@@ -32,12 +32,12 @@
   <main class="thanks">
     <div class="thanks-card">
       <div class="check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5 10 17 19 7"/></svg></div>
-      <h1>Thank you – we have your enquiry</h1>
-      <p>A confirmation email is on its way to your inbox.</p>
+      <h1 id="tyTitle">Thank you – we have your enquiry</h1>
+      <p id="tyLead">A confirmation email is on its way to your inbox.</p>
       <div class="next">
         <div><b>1</b><span>Check your inbox for our confirmation (look in spam if it hasn't arrived in a few minutes).</span></div>
-        <div><b>2</b><span>A specialist for your region reviews your requirement.</span></div>
-        <div><b>3</b><span>We call you within one working day.</span></div>
+        <div><b>2</b><span id="ty2">A specialist for your region reviews your requirement.</span></div>
+        <div><b>3</b><span id="ty3">We call you within one working day.</span></div>
       </div>
       <div class="row">
         <a class="btn" href="index.html#products">Browse more products</a>
@@ -46,5 +46,15 @@
     </div>
   </main>
   <script src="assets/js/site.js"></script>
+  <script>
+    // Service requests return with ?type=service and get service-specific wording.
+    if (new URLSearchParams(location.search).get('type') === 'service') {
+      document.title = 'Request received – Helios Equipment Services';
+      document.getElementById('tyTitle').textContent = 'Thank you – your service request is logged';
+      document.getElementById('tyLead').textContent = 'You will receive an email with your case number shortly.';
+      document.getElementById('ty2').textContent = 'A dispatcher checks your coverage plan and assigns an engineer.';
+      document.getElementById('ty3').textContent = 'We confirm the planned visit. Reply to the email to add photos or details.';
+    }
+  </script>
 </body>
 </html>

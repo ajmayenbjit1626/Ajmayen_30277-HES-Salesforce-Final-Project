@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Effort_Required_Before_Assignment</fullName>
+    <active>true</active>
+    <description>SVC-02: a Technical case cannot be assigned to a user (engineer) unless Estimated Effort is above zero. Queues are allowed. Bypassed by the Bypass Validation Rules custom permission (HES Data Loader) for data loads.</description>
+    <errorConditionFormula>AND(
+     NOT($Permission.Bypass_Validation_Rules),
+     RecordType.DeveloperName = &quot;Technical&quot;,
+     ISCHANGED(OwnerId),
+     NOT(ISBLANK(Owner:User.Id)),
+     OR(ISBLANK(Estimated_Effort__c), Estimated_Effort__c &lt;= 0)
+   )</errorConditionFormula>
+    <errorDisplayField>Estimated_Effort__c</errorDisplayField>
+    <errorMessage>Enter an estimated effort above zero before assigning this case to an engineer.</errorMessage>
+</ValidationRule>

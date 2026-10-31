@@ -1,0 +1,15 @@
+Hello,
+
+{!Opportunity.OwnerFullName} has submitted a discount for your approval.
+
+Opportunity: {!Opportunity.Name}
+Account: {!Opportunity.Account}
+Amount: {!Opportunity.Amount}
+Discount: {!Opportunity.Discount__c}
+Stage: {!Opportunity.StageName}
+Comments: {!ApprovalRequest.Comments}
+
+Approve or reject here: {!ApprovalRequest.Internal_URL}
+You can also reply APPROVE or REJECT to this email.
+
+Helios Equipment Services

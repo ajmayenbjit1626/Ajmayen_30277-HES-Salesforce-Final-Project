@@ -1,0 +1,357 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GenAiPromptTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <activeVersionIdentifier>NgFUAWv91J5KAwRC674qYQPF1yO3W5EPOnWMN0CSDkw=_4</activeVersionIdentifier>
+    <description>AI-03: Briefing for account reviews – open opportunities, open cases and installed equipment with coverage, always in the same three sections.</description>
+    <developerName>HES_Account_Briefing</developerName>
+    <masterLabel>HES Account Briefing</masterLabel>
+    <overridable>false</overridable>
+    <relatedEntity>Account</relatedEntity>
+    <templateVersions>
+        <content>You are preparing a Helios Equipment Services account review for a sales or service manager.
+Summarise this customer using exactly these three headings, each followed by at most two sentences:
+
+Open opportunities: number of opportunities that are not &quot;Closed Won&quot; or &quot;Closed Lost&quot;, their total amount, and the largest one with its stage.
+Open cases: number of cases whose status is not &quot;Closed&quot;, any with High priority, and the oldest open case with its number.
+Installed equipment: number of units by product, and how many are Covered, Expired or Not Covered.
+
+Rules:
+- Use only the data below. If a list is empty, write &quot;None&quot;.
+- Do not invent figures, dates or names.
+- Plain language, no greeting.
+
+Account: {!$Input:Account.Name}
+Region: {!$Input:Account.Region__c}
+Opportunities: {!$RelatedList:Account.Opportunities.Records}
+Cases: {!$RelatedList:Account.Cases.Records}
+Equipment: {!$RelatedList:Account.Equipment__r.Records}
+</content>
+        <fileDroppingStrategy>{&quot;dropFilesBy&quot;:&quot;LAST_MODIFIED_DATE&quot;,&quot;dropFileStartingWith&quot;:&quot;OLDEST&quot;}</fileDroppingStrategy>
+        <inputs>
+            <apiName>objectToSummarize</apiName>
+            <definition>SOBJECT://Account</definition>
+            <referenceName>Input:Account</referenceName>
+            <required>true</required>
+        </inputs>
+        <isCitationEnabled>false</isCitationEnabled>
+        <primaryModel>sfdc_ai__DefaultGPT5Mini</primaryModel>
+        <status>Draft</status>
+        <templateDataProviders>
+            <definition>invocable://getRelatedList</definition>
+            <description>Gets a related list for the specified parent record id and related list name</description>
+            <label>Opportunities</label>
+            <parameters>
+                <definition>primitive://String</definition>
+                <isRequired>true</isRequired>
+                <parameterName>parentRecordId</parameterName>
+                <valueExpression>{!$Input:Account.Id}</valueExpression>
+            </parameters>
+            <parameters>
+                <definition>primitive://String</definition>
+                <isRequired>true</isRequired>
+                <parameterName>relatedListName</parameterName>
+                <valueExpression>Opportunities</valueExpression>
+            </parameters>
+            <referenceName>RelatedList:Account.Opportunities.Records</referenceName>
+        </templateDataProviders>
+        <templateDataProviders>
+            <definition>invocable://getRelatedList</definition>
+            <description>Gets a related list for the specified parent record id and related list name</description>
+            <label>Cases</label>
+            <parameters>
+                <definition>primitive://String</definition>
+                <isRequired>true</isRequired>
+                <parameterName>parentRecordId</parameterName>
+                <valueExpression>{!$Input:Account.Id}</valueExpression>
+            </parameters>
+            <parameters>
+                <definition>primitive://String</definition>
+                <isRequired>true</isRequired>
+                <parameterName>relatedListName</parameterName>
+                <valueExpression>Cases</valueExpression>
+            </parameters>
+            <referenceName>RelatedList:Account.Cases.Records</referenceName>
+        </templateDataProviders>
+        <templateDataProviders>
+            <definition>invocable://getRelatedList</definition>
+            <description>Gets a related list for the specified parent record id and related list name</description>
+            <label>Equipment</label>
+            <parameters>
+                <definition>primitive://String</definition>
+                <isRequired>true</isRequired>
+                <parameterName>parentRecordId</parameterName>
+                <valueExpression>{!$Input:Account.Id}</valueExpression>
+            </parameters>
+            <parameters>
+                <definition>primitive://String</definition>
+                <isRequired>true</isRequired>
+                <parameterName>relatedListName</parameterName>
+                <valueExpression>Equipment__r</valueExpression>
+            </parameters>
+            <referenceName>RelatedList:Account.Equipment__r.Records</referenceName>
+        </templateDataProviders>
+        <versionIdentifier>NgFUAWv91J5KAwRC674qYQPF1yO3W5EPOnWMN0CSDkw=_1</versionIdentifier>
+    </templateVersions>
+    <templateVersions>
+        <content>You are preparing a Helios Equipment Services account review for a sales or service manager.
+Summarise this customer using exactly these three headings, each followed by at most two sentences:
+
+Open opportunities: number of opportunities that are not &quot;Closed Won&quot; or &quot;Closed Lost&quot;, their total amount, and the largest one with its stage.
+Open cases: number of cases whose status is not &quot;Closed&quot;, any with High priority, and the oldest open case with its number.
+Installed equipment: number of units by product, and how many are Covered, Expired or Not Covered.
+
+Rules:
+- Use only the data below. If a list is empty, write &quot;None&quot;.
+- Do not invent figures, dates or names.
+- Plain language, no greeting.
+
+Account: {!$Input:Account.Name}
+Region: {!$Input:Account.Region__c}
+Opportunities: {!$RelatedList:Account.Opportunities.Records}
+Cases: {!$RelatedList:Account.Cases.Records}
+Equipment: {!$RelatedList:Account.Equipment__r.Records}
+</content>
+        <fileDroppingStrategy>{&quot;dropFilesBy&quot;:&quot;LAST_MODIFIED_DATE&quot;,&quot;dropFileStartingWith&quot;:&quot;OLDEST&quot;}</fileDroppingStrategy>
+        <inputs>
+            <apiName>objectToSummarize</apiName>
+            <definition>SOBJECT://Account</definition>
+            <referenceName>Input:Account</referenceName>
+            <required>true</required>
+        </inputs>
+        <isCitationEnabled>false</isCitationEnabled>
+        <primaryModel>sfdc_ai__DefaultGPT5Mini</primaryModel>
+        <status>Draft</status>
+        <templateDataProviders>
+            <definition>invocable://getRelatedList</definition>
+            <description>Gets a related list for the specified parent record id and related list name</description>
+            <label>Cases</label>
+            <parameters>
+                <definition>primitive://String</definition>
+                <isRequired>true</isRequired>
+                <parameterName>parentRecordId</parameterName>
+                <valueExpression>{!$Input:Account.Id}</valueExpression>
+            </parameters>
+            <parameters>
+                <definition>primitive://String</definition>
+                <isRequired>true</isRequired>
+                <parameterName>relatedListName</parameterName>
+                <valueExpression>Cases</valueExpression>
+            </parameters>
+            <referenceName>RelatedList:Account.Cases.Records</referenceName>
+        </templateDataProviders>
+        <templateDataProviders>
+            <definition>invocable://getRelatedList</definition>
+            <description>Gets a related list for the specified parent record id and related list name</description>
+            <label>Equipment</label>
+            <parameters>
+                <definition>primitive://String</definition>
+                <isRequired>true</isRequired>
+                <parameterName>parentRecordId</parameterName>
+                <valueExpression>{!$Input:Account.Id}</valueExpression>
+            </parameters>
+            <parameters>
+                <definition>primitive://String</definition>
+                <isRequired>true</isRequired>
+                <parameterName>relatedListName</parameterName>
+                <valueExpression>Equipment__r</valueExpression>
+            </parameters>
+            <referenceName>RelatedList:Account.Equipment__r.Records</referenceName>
+        </templateDataProviders>
+        <templateDataProviders>
+            <definition>invocable://getRelatedList</definition>
+            <description>Gets a related list for the specified parent record id and related list name</description>
+            <label>Opportunities</label>
+            <parameters>
+                <definition>primitive://String</definition>
+                <isRequired>true</isRequired>
+                <parameterName>parentRecordId</parameterName>
+                <valueExpression>{!$Input:Account.Id}</valueExpression>
+            </parameters>
+            <parameters>
+                <definition>primitive://String</definition>
+                <isRequired>true</isRequired>
+                <parameterName>relatedListName</parameterName>
+                <valueExpression>Opportunities</valueExpression>
+            </parameters>
+            <referenceName>RelatedList:Account.Opportunities.Records</referenceName>
+        </templateDataProviders>
+        <templateFormat>FormulaExpression</templateFormat>
+        <versionIdentifier>NgFUAWv91J5KAwRC674qYQPF1yO3W5EPOnWMN0CSDkw=_2</versionIdentifier>
+    </templateVersions>
+    <templateVersions>
+        <content>You are preparing a Helios Equipment Services account review for a sales or service manager.
+Summarise this customer using exactly these three headings, each followed by at most two sentences:
+
+Open opportunities: number of opportunities that are not &quot;Closed Won&quot; or &quot;Closed Lost&quot;, their total amount, and the largest one with its stage.
+Open cases: number of cases whose status is not &quot;Closed&quot;, any with High priority, and the oldest open case with its number.
+Installed equipment: number of units by product, and how many are Covered, Expired or Not Covered.
+
+Rules:
+- Use only the data below. If a list is empty, write &quot;None&quot;.
+- Do not invent figures, dates or names.
+- Plain language, no greeting.
+
+Account: {!$Input:Account.Name}
+Region: {!$Input:Account.Region__c}
+Opportunities: {!$RelatedList:Account.Opportunities.Records}
+Cases: {!$RelatedList:Account.Cases.Records}
+Equipment: {!$RelatedList:Account.Equipment__r.Records}
+</content>
+        <fileDroppingStrategy>{&quot;dropFilesBy&quot;:&quot;LAST_MODIFIED_DATE&quot;,&quot;dropFileStartingWith&quot;:&quot;OLDEST&quot;}</fileDroppingStrategy>
+        <inputs>
+            <apiName>objectToSummarize</apiName>
+            <definition>SOBJECT://Account</definition>
+            <referenceName>Input:Account</referenceName>
+            <required>true</required>
+        </inputs>
+        <isCitationEnabled>false</isCitationEnabled>
+        <primaryModel>sfdc_ai__DefaultGPT5Mini</primaryModel>
+        <status>Draft</status>
+        <templateDataProviders>
+            <definition>invocable://getRelatedList</definition>
+            <description>Gets a related list for the specified parent record id and related list name</description>
+            <label>Opportunities</label>
+            <parameters>
+                <definition>primitive://String</definition>
+                <isRequired>true</isRequired>
+                <parameterName>parentRecordId</parameterName>
+                <valueExpression>{!$Input:Account.Id}</valueExpression>
+            </parameters>
+            <parameters>
+                <definition>primitive://String</definition>
+                <isRequired>true</isRequired>
+                <parameterName>relatedListName</parameterName>
+                <valueExpression>Opportunities</valueExpression>
+            </parameters>
+            <referenceName>RelatedList:Account.Opportunities.Records</referenceName>
+        </templateDataProviders>
+        <templateDataProviders>
+            <definition>invocable://getRelatedList</definition>
+            <description>Gets a related list for the specified parent record id and related list name</description>
+            <label>Cases</label>
+            <parameters>
+                <definition>primitive://String</definition>
+                <isRequired>true</isRequired>
+                <parameterName>parentRecordId</parameterName>
+                <valueExpression>{!$Input:Account.Id}</valueExpression>
+            </parameters>
+            <parameters>
+                <definition>primitive://String</definition>
+                <isRequired>true</isRequired>
+                <parameterName>relatedListName</parameterName>
+                <valueExpression>Cases</valueExpression>
+            </parameters>
+            <referenceName>RelatedList:Account.Cases.Records</referenceName>
+        </templateDataProviders>
+        <templateDataProviders>
+            <definition>invocable://getRelatedList</definition>
+            <description>Gets a related list for the specified parent record id and related list name</description>
+            <label>Equipment</label>
+            <parameters>
+                <definition>primitive://String</definition>
+                <isRequired>true</isRequired>
+                <parameterName>parentRecordId</parameterName>
+                <valueExpression>{!$Input:Account.Id}</valueExpression>
+            </parameters>
+            <parameters>
+                <definition>primitive://String</definition>
+                <isRequired>true</isRequired>
+                <parameterName>relatedListName</parameterName>
+                <valueExpression>Equipment__r</valueExpression>
+            </parameters>
+            <referenceName>RelatedList:Account.Equipment__r.Records</referenceName>
+        </templateDataProviders>
+        <templateFormat>FormulaExpression</templateFormat>
+        <versionIdentifier>NgFUAWv91J5KAwRC674qYQPF1yO3W5EPOnWMN0CSDkw=_3</versionIdentifier>
+    </templateVersions>
+    <templateVersions>
+        <content>You are preparing a Helios Equipment Services account review for a sales or service manager.
+Summarise this customer using exactly these three headings, each followed by at most two sentences:
+
+Open opportunities: number of opportunities that are not &quot;Closed Won&quot; or &quot;Closed Lost&quot;, their total amount, and the largest one with its stage.
+Open cases: number of cases whose status is not &quot;Closed&quot;, any with High priority, and the oldest open case with its number.
+Installed equipment: number of units by product, and how many are Covered, Expired or Not Covered.
+
+Rules:
+- Output only the three headings above and their sentences. Nothing before or after them, no closing remarks.
+- At most two sentences per heading.
+- Installed equipment: give the total number of units, the three most common products, and the counts of Covered, Expired and Not Covered. Units without a product count as &quot;other&quot;.
+- Use only the data below. If a list is empty, write &quot;None&quot;.
+- Never mention field names, API names or technical terms.
+- Do not invent figures, dates or names. Plain language, no greeting.
+
+Account: {!$Input:Account.Name}
+Region: {!$Input:Account.Region__c}
+Opportunities: {!$RelatedList:Account.Opportunities.Records}
+Cases: {!$RelatedList:Account.Cases.Records}
+Equipment: {!$RelatedList:Account.Equipment__r.Records}
+</content>
+        <fileDroppingStrategy>{&quot;dropFilesBy&quot;:&quot;LAST_MODIFIED_DATE&quot;,&quot;dropFileStartingWith&quot;:&quot;OLDEST&quot;}</fileDroppingStrategy>
+        <inputs>
+            <apiName>objectToSummarize</apiName>
+            <definition>SOBJECT://Account</definition>
+            <referenceName>Input:Account</referenceName>
+            <required>true</required>
+        </inputs>
+        <isCitationEnabled>false</isCitationEnabled>
+        <primaryModel>sfdc_ai__DefaultGPT5Mini</primaryModel>
+        <status>Published</status>
+        <templateDataProviders>
+            <definition>invocable://getRelatedList</definition>
+            <description>Gets a related list for the specified parent record id and related list name</description>
+            <label>Opportunities</label>
+            <parameters>
+                <definition>primitive://String</definition>
+                <isRequired>true</isRequired>
+                <parameterName>parentRecordId</parameterName>
+                <valueExpression>{!$Input:Account.Id}</valueExpression>
+            </parameters>
+            <parameters>
+                <definition>primitive://String</definition>
+                <isRequired>true</isRequired>
+                <parameterName>relatedListName</parameterName>
+                <valueExpression>Opportunities</valueExpression>
+            </parameters>
+            <referenceName>RelatedList:Account.Opportunities.Records</referenceName>
+        </templateDataProviders>
+        <templateDataProviders>
+            <definition>invocable://getRelatedList</definition>
+            <description>Gets a related list for the specified parent record id and related list name</description>
+            <label>Cases</label>
+            <parameters>
+                <definition>primitive://String</definition>
+                <isRequired>true</isRequired>
+                <parameterName>parentRecordId</parameterName>
+                <valueExpression>{!$Input:Account.Id}</valueExpression>
+            </parameters>
+            <parameters>
+                <definition>primitive://String</definition>
+                <isRequired>true</isRequired>
+                <parameterName>relatedListName</parameterName>
+                <valueExpression>Cases</valueExpression>
+            </parameters>
+            <referenceName>RelatedList:Account.Cases.Records</referenceName>
+        </templateDataProviders>
+        <templateDataProviders>
+            <definition>invocable://getRelatedList</definition>
+            <description>Gets a related list for the specified parent record id and related list name</description>
+            <label>Equipment</label>
+            <parameters>
+                <definition>primitive://String</definition>
+                <isRequired>true</isRequired>
+                <parameterName>parentRecordId</parameterName>
+                <valueExpression>{!$Input:Account.Id}</valueExpression>
+            </parameters>
+            <parameters>
+                <definition>primitive://String</definition>
+                <isRequired>true</isRequired>
+                <parameterName>relatedListName</parameterName>
+                <valueExpression>Equipment__r</valueExpression>
+            </parameters>
+            <referenceName>RelatedList:Account.Equipment__r.Records</referenceName>
+        </templateDataProviders>
+        <templateFormat>FormulaExpression</templateFormat>
+        <versionIdentifier>NgFUAWv91J5KAwRC674qYQPF1yO3W5EPOnWMN0CSDkw=_4</versionIdentifier>
+    </templateVersions>
+    <type>einstein_gpt__recordSummary</type>
+    <visibility>Global</visibility>
+</GenAiPromptTemplate>

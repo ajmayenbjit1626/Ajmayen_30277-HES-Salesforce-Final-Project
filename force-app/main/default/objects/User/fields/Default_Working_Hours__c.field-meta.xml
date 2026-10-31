@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Default_Working_Hours__c</fullName>
-    <defaultValue>8</defaultValue>
     <description>Hours this engineer can be planned per working day.</description>
     <externalId>false</externalId>
     <label>Default Working Hours</label>

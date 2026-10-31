@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Helios Equipment Services – public service request form (INT-02, Web-to-Case).
+       Each submission creates a Case with Case Origin = Web; the case acknowledgement email alert (5-03) replies.
+       Field names and orgid are unchanged from the form generated in Salesforce. -->
+  <meta http-equiv="Content-type" content="text/html; charset=UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Service Request – Helios Equipment Services</title>
+  <meta name="description" content="Report a fault or request service for your Helios chiller, compressor or air dryer.">
+  <meta name="theme-color" content="#032d60">
+  <link rel="icon" href="assets/img/logo.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="assets/css/site.css">
+  <link rel="stylesheet" href="assets/css/form.css">
+  <style>
+    .urgency { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+    @media (max-width: 560px) { .urgency { grid-template-columns: 1fr; } }
+    .urg { position: relative; }
+    .urg input { position: absolute; opacity: 0; inset: 0; width: 100%; height: 100%; margin: 0; cursor: pointer; }
+    .urg .face { border: 1px solid #c9c9c9; border-radius: var(--radius); padding: 12px; transition: all 0.15s; height: 100%; }
+    .urg b { display: flex; align-items: center; gap: 8px; font-size: 14px; }
+    .urg small { display: block; color: var(--muted); font-size: 12px; margin-top: 4px; }
+    .dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
+    .urg input:checked + .face { border-color: var(--brand); background: var(--sky); box-shadow: 0 0 0 1px var(--brand) inset; }
+    .urg input:focus-visible + .face { box-shadow: 0 0 3px var(--brand); }
+    .notice { background: #fff8e6; border: 1px solid #f4c46a; border-radius: var(--radius); padding: 12px 14px; font-size: 13px; margin-bottom: 18px; }
+    .notice b { color: #8a5300; }
+  </style>
+</head>
+<body>
+
+  <nav class="nav" aria-label="Main">
+    <div class="container">
+      <a class="logo" href="index.html"><img src="assets/img/logo.svg" alt="" width="32" height="32"><span>Helios Equipment Services<small>Cooling · Compressed air · Service</small></span></a>
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="navLinks">Menu</button>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="index.html#products">Products</a></li>
+        <li><a href="index.html#service">Service plans</a></li>
+        <li><a href="service.html" aria-current="page">Service request</a></li>
+        <li><a class="btn btn-sun btn-sm" href="enquiry.html">Request a quote</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <header class="form-hero">
+    <div class="container">
+      <div class="crumbs"><a href="index.html">Home</a> › Service request</div>
+      <h1>Request service for your equipment</h1>
+      <p>Report a fault or book maintenance. Our service desk confirms by email and a dispatcher plans an engineer for your site.</p>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section class="card" aria-labelledby="formTitle">
+      <div class="card-head">
+        <h2 id="formTitle">Your service request</h2>
+        <span class="progress-label" id="progressLabel">0 of 6 required fields</span>
+      </div>
+      <div class="progress" aria-hidden="true"><i id="progressBar"></i></div>
+
+      <div class="card-body">
+        <div class="notice"><b>Unit stopped or unsafe?</b> Choose <b>High</b> urgency below. Critical-plan customers can also call their regional service hub 24/7.</div>
+        <div class="alert" id="formAlert" role="alert">Please complete the highlighted fields.</div>
+
+        <form id="caseForm" action="https://webto.salesforce.com/servlet/servlet.WebToCase?encoding=UTF-8&orgId=00Dfj00000klaTl" method="POST" novalidate>
+
+          <!-- Salesforce routing fields: do not change orgid.
+               retURL is set to this site's thank-you page by the script below. -->
+          <input type="hidden" name="orgid" value="00Dfj00000klaTl">
+          <input type="hidden" id="retURL" name="retURL" value="https://sprightly-pothos-2e1dfb.netlify.app/thank-you.html?type=service">
+          <!-- Case record type = Technical (WBS 6-01, SVC-01): every website service request is an equipment fault.
+               The ID lives only in this page, never in formulas, flows or Apex. If the org is rebuilt, update it from
+               Setup › Object Manager › Case › Record Types › Technical (ID in the address bar). -->
+          <input type="hidden" name="recordType" value="012fj000008k6sD">
+
+          <!-- Testing only: remove the comment marks to see Salesforce's debug page. Put them back before going live. -->
+          <!-- <input type="hidden" name="debug" value="1"> -->
+          <!-- <input type="hidden" name="debugEmail" value="ajmayenfayek1@gmail.com"> -->
+
+          <!-- The serial number box is merged into the description before sending. -->
+          <input type="hidden" id="description" name="description" value="">
+
+          <fieldset>
+            <legend>About you</legend>
+            <div class="grid">
+              <div class="field">
+                <label for="name"><abbr class="req" title="required">*</abbr>Contact Name</label>
+                <input id="name" maxlength="80" name="name" type="text" required autocomplete="name">
+                <div class="help">Enter your name.</div>
+              </div>
+              <div class="field">
+                <label for="email"><abbr class="req" title="required">*</abbr>Email</label>
+                <input id="email" maxlength="80" name="email" type="email" required autocomplete="email">
+                <div class="help">Enter a valid email address, e.g. name@company.com.</div>
+              </div>
+              <div class="field">
+                <label for="phone">Phone</label>
+                <input id="phone" maxlength="40" name="phone" type="tel" autocomplete="tel">
+              </div>
+              <div class="field">
+                <label for="company">Company</label>
+                <input id="company" maxlength="80" name="company" type="text" autocomplete="organization">
+              </div>
+            </div>
+            <p class="hint" style="margin-top:10px">Use the email address we have on file for your company, so your request is linked to your account straight away.</p>
+          </fieldset>
+
+          <fieldset>
+            <legend>Your equipment</legend>
+            <div class="grid">
+              <div class="field full">
+                <span class="label"><abbr class="req" title="required">*</abbr>Equipment Type</span>
+                <div class="tiles" role="radiogroup" aria-label="Equipment Type">
+                  <label class="tile">
+                    <input type="radio" name="00Nfj00005N7fBV" value="Chiller" required>
+                    <div class="face"><img src="assets/img/chiller.svg" alt=""><b>Chiller</b></div>
+                  </label>
+                  <label class="tile">
+                    <input type="radio" name="00Nfj00005N7fBV" value="Compressor">
+                    <div class="face"><img src="assets/img/compressor.svg" alt=""><b>Compressor</b></div>
+                  </label>
+                  <label class="tile">
+                    <input type="radio" name="00Nfj00005N7fBV" value="Air Dryer">
+                    <div class="face"><img src="assets/img/airdryer.svg" alt=""><b>Air Dryer</b></div>
+                  </label>
+                </div>
+                <div class="help">Choose the type of equipment.</div>
+              </div>
+              <div class="field full">
+                <label for="serial">Serial number (if known)</label>
+                <input id="serial" maxlength="40" type="text" placeholder="On the rating plate, e.g. CH200-2026-0457">
+                <div class="hint">Helps the engineer bring the right parts.</div>
+              </div>
+            </div>
+          </fieldset>
+
+          <fieldset>
+            <legend>The problem</legend>
+            <div class="grid">
+              <div class="field full">
+                <span class="label"><abbr class="req" title="required">*</abbr>Type of request</span>
+                <!-- Standard Case Type field. Values must match the Technical record type's Type values (WBS 6-01). -->
+                <div class="pills" role="radiogroup" aria-label="Type of request">
+                  <label class="pill"><input type="radio" name="type" value="Breakdown" required><span>Breakdown – something is not working</span></label>
+                  <label class="pill"><input type="radio" name="type" value="Maintenance"><span>Maintenance – planned service visit</span></label>
+                  <label class="pill"><input type="radio" name="type" value="Installation"><span>Installation – new or moved unit</span></label>
+                </div>
+                <div class="help">Choose the type of request.</div>
+              </div>
+              <div class="field full">
+                <label for="subject"><abbr class="req" title="required">*</abbr>Subject</label>
+                <input id="subject" maxlength="80" name="subject" type="text" required placeholder="e.g. Chiller making a loud grinding noise">
+                <div class="help">Give your request a short title.</div>
+              </div>
+              <div class="field full">
+                <label for="details"><abbr class="req" title="required">*</abbr>What is happening?</label>
+                <textarea id="details" maxlength="1800" required placeholder="Symptoms, error codes on the display, since when, site access details…"></textarea>
+                <div class="help">Describe the problem.</div>
+                <div class="counter"><span id="descCount">0</span> / 1800</div>
+              </div>
+              <div class="field full">
+                <span class="label">Urgency</span>
+                <div class="urgency" role="radiogroup" aria-label="Urgency">
+                  <label class="urg"><input type="radio" name="priority" value="High"><div class="face"><b><span class="dot" style="background:#ba0517"></span>High</b><small>Unit stopped, production or safety at risk</small></div></label>
+                  <label class="urg"><input type="radio" name="priority" value="Medium" checked><div class="face"><b><span class="dot" style="background:#dd7a01"></span>Medium</b><small>Running, but not as it should</small></div></label>
+                  <label class="urg"><input type="radio" name="priority" value="Low"><div class="face"><b><span class="dot" style="background:#2e844a"></span>Low</b><small>Question or planned maintenance</small></div></label>
+                </div>
+              </div>
+            </div>
+          </fieldset>
+
+          <div class="actions">
+            <p class="privacy">By sending this form you agree that Helios Equipment Services may contact you about your request.</p>
+            <button class="btn" id="submitBtn" type="submit" name="submit"><span class="spinner" aria-hidden="true"></span><span id="btnText">Send request</span></button>
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <aside class="side">
+      <section class="card summary" aria-labelledby="sumTitle">
+        <div class="card-head"><h2 id="sumTitle">Request summary</h2></div>
+        <div class="card-body">
+          <dl>
+            <dt>Name</dt><dd id="sName" class="empty">–</dd>
+            <dt>Company</dt><dd id="sCompany" class="empty">–</dd>
+            <dt>Equipment</dt><dd id="sEquip" class="empty">–</dd>
+            <dt>Serial</dt><dd id="sSerial" class="empty">–</dd>
+            <dt>Request</dt><dd id="sType" class="empty">–</dd>
+            <dt>Subject</dt><dd id="sSubject" class="empty">–</dd>
+            <dt>Urgency</dt><dd id="sUrg" class="empty">–</dd>
+          </dl>
+        </div>
+      </section>
+      <section class="card" aria-labelledby="nextTitle">
+        <div class="card-head"><h2 id="nextTitle">What happens next</h2></div>
+        <div class="card-body">
+          <ol class="steps">
+            <li><span class="n">1</span><span>You receive an email with your case number.</span></li>
+            <li><span class="n">2</span><span>A dispatcher checks your coverage plan and assigns an engineer.</span></li>
+            <li><span class="n">3</span><span>We confirm the planned visit date. Reply to the email to add photos or details.</span></li>
+          </ol>
+        </div>
+      </section>
+    </aside>
+  </main>
+
+  <footer class="site">
+    <div class="container">
+      <div class="legal" style="border:0;margin:0;padding:0"><span>© <span id="year"></span> Helios Equipment Services. Demo website.</span><a href="index.html">Back to home</a></div>
+    </div>
+  </footer>
+
+  <script src="assets/js/site.js"></script>
+  <script>
+    // Presentation only: progress, summary, validation, loading state, and merging the serial number
+    // into the standard Description field. Field names posted to Salesforce are unchanged.
+    (function () {
+      var form = document.getElementById('caseForm');
+      var EQUIP = '00Nfj00005N7fBV';
+      var required = ['name', 'email', EQUIP, 'type', 'subject', 'details'];
+      if (/^https?:$/.test(location.protocol)) {
+        document.getElementById('retURL').value = location.origin + location.pathname.replace(/[^/]*$/, '') + 'thank-you.html?type=service';
+      }
+      function group(n) { return Array.prototype.slice.call(form.querySelectorAll('input[name="' + n + '"]')); }
+      function el(n) { return document.getElementById(n) || group(n)[0]; }
+      function val(n) {
+        var g = group(n);
+        if (g.length && g[0].type === 'radio') { var c = g.filter(function (r) { return r.checked; })[0]; return c ? c.value : ''; }
+        var e = document.getElementById(n); return e ? (e.value || '').trim() : '';
+      }
+      function ok(n) { var v = val(n); if (!v) return false; return n === 'email' ? /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v) : true; }
+      function fieldOf(n) { return el(n).closest('.field'); }
+      function set(id, t) { var d = document.getElementById(id); d.textContent = t || '–'; d.classList.toggle('empty', !t); }
+      function refresh() {
+        var done = required.filter(ok).length;
+        document.getElementById('progressBar').style.width = (done / required.length * 100) + '%';
+        document.getElementById('progressLabel').textContent = done + ' of ' + required.length + ' required fields';
+        if (done === required.length) document.getElementById('formAlert').classList.remove('show');
+        set('sName', val('name')); set('sCompany', val('company')); set('sEquip', val(EQUIP));
+        set('sSerial', val('serial')); set('sType', val('type')); set('sSubject', val('subject')); set('sUrg', val('priority'));
+        document.getElementById('descCount').textContent = val('details').length;
+        required.forEach(function (n) { var f = fieldOf(n); if (f.classList.contains('has-error') && ok(n)) f.classList.remove('has-error'); });
+      }
+      form.addEventListener('input', refresh);
+      form.addEventListener('change', refresh);
+      required.forEach(function (n) {
+        (group(n).length ? group(n) : [document.getElementById(n)]).forEach(function (x) {
+          x.addEventListener('blur', function () { if (!ok(n)) fieldOf(n).classList.add('has-error'); });
+        });
+      });
+      form.addEventListener('submit', function (e) {
+        var bad = required.filter(function (n) { return !ok(n); });
+        if (bad.length) {
+          e.preventDefault();
+          bad.forEach(function (n) { fieldOf(n).classList.add('has-error'); });
+          document.getElementById('formAlert').classList.add('show');
+          el(bad[0]).focus();
+          return;
+        }
+        var serial = val('serial');
+        document.getElementById('description').value = (serial ? 'Serial number: ' + serial + '\n\n' : '') + val('details');
+        var btn = document.getElementById('submitBtn');
+        btn.classList.add('loading'); btn.setAttribute('disabled', 'disabled');
+        document.getElementById('btnText').textContent = 'Sending…';
+      });
+      refresh();
+    })();
+  </script>
+</body>
+</html>

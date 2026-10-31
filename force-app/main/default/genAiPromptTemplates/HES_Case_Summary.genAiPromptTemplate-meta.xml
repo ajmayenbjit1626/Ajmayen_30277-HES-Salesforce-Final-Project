@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GenAiPromptTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <activeVersionIdentifier>NgFUAWv91J5KAwRC674qYQPF1yO3W5EPOnWMN0CSDkw=_1</activeVersionIdentifier>
+    <description>AI-01: Generates a three-sentence summary of a service case (problem and equipment, history, next action) into the AI Summary field for field engineers.</description>
+    <developerName>HES_Case_Summary</developerName>
+    <masterLabel>HES Case Summary</masterLabel>
+    <overridable>false</overridable>
+    <relatedEntity>Case</relatedEntity>
+    <relatedField>Case.AI_Summary__c</relatedField>
+    <templateVersions>
+        <content>You are a service coordinator at Helios Equipment Services.
+Summarise this service case for a field engineer in exactly three sentences:
+1) the reported problem and the equipment involved, 2) what has happened so far,
+3) what the engineer needs to do or bring next. Use plain language and no greeting.
+If information is missing, say so instead of guessing.
+
+Case subject: {!$Input:Case.Subject}
+Description: {!$Input:Case.Description}
+Equipment: {!$Input:Case.Equipment__r.Name}
+Case comments: {!$RelatedList:Case.CaseComments.Records} 
+</content>
+        <fileDroppingStrategy>{&quot;dropFilesBy&quot;:&quot;LAST_MODIFIED_DATE&quot;,&quot;dropFileStartingWith&quot;:&quot;OLDEST&quot;}</fileDroppingStrategy>
+        <inputs>
+            <apiName>RelatedEntity</apiName>
+            <definition>SOBJECT://Case</definition>
+            <referenceName>Input:Case</referenceName>
+            <required>true</required>
+        </inputs>
+        <isCitationEnabled>false</isCitationEnabled>
+        <primaryModel>sfdc_ai__DefaultGPT5Mini</primaryModel>
+        <status>Published</status>
+        <templateDataProviders>
+            <definition>invocable://getRelatedList</definition>
+            <description>Gets a related list for the specified parent record id and related list name</description>
+            <label>Case Comments</label>
+            <parameters>
+                <definition>primitive://String</definition>
+                <isRequired>true</isRequired>
+                <parameterName>parentRecordId</parameterName>
+                <valueExpression>{!$Input:Case.Id}</valueExpression>
+            </parameters>
+            <parameters>
+                <definition>primitive://String</definition>
+                <isRequired>true</isRequired>
+                <parameterName>relatedListName</parameterName>
+                <valueExpression>CaseComments</valueExpression>
+            </parameters>
+            <referenceName>RelatedList:Case.CaseComments.Records</referenceName>
+        </templateDataProviders>
+        <versionIdentifier>NgFUAWv91J5KAwRC674qYQPF1yO3W5EPOnWMN0CSDkw=_1</versionIdentifier>
+    </templateVersions>
+    <type>einstein_gpt__fieldCompletion</type>
+    <visibility>Global</visibility>
+</GenAiPromptTemplate>

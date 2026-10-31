@@ -1,0 +1,51 @@
+<template>
+    <lightning-card title={cardTitle} icon-name="standard:resource_capacity">
+        <div slot="actions">
+            <lightning-button-group>
+                <lightning-button-icon icon-name="utility:chevronleft" alternative-text="Previous week" onclick={prevWeek}></lightning-button-icon>
+                <lightning-button-icon icon-name="utility:chevronright" alternative-text="Next week" onclick={nextWeek}></lightning-button-icon>
+            </lightning-button-group>
+        </div>
+        <template lwc:if={errorMessage}>
+            <p class="slds-p-around_small slds-text-color_error">{errorMessage}</p>
+        </template>
+        <template lwc:if={hasRows}>
+            <table class="slds-table slds-table_bordered slds-table_cell-buffer">
+                <thead>
+                    <tr>
+                        <th scope="col">Engineer</th>
+                        <template for:each={days} for:item="d">
+                            <th key={d.key} scope="col">{d.label}</th>
+                        </template>
+                    </tr>
+                </thead>
+                <tbody>
+                    <template for:each={rows} for:item="r">
+                        <tr key={r.engineerId}>
+                            <th scope="row">{r.name} <span class="slds-text-color_weak">{r.note}</span></th>
+                            <template for:each={r.cells} for:item="c">
+                                <td key={c.key}>
+                                    <button class={c.cls} data-engineer={r.engineerId} data-name={r.name}
+                                            data-day={c.day} onclick={handleCellClick}>{c.label}</button>
+                                </td>
+                            </template>
+                        </tr>
+                    </template>
+                </tbody>
+            </table>
+        </template>
+        <template lwc:else>
+            <p class="slds-p-around_small empty">{labels.noEngineers}</p>
+        </template>
+        <template lwc:if={selected}>
+            <div class="slds-p-around_small">
+                <p class="slds-text-title_bold">{selected.title}</p>
+                <ul>
+                    <template for:each={selected.items} for:item="s">
+                        <li key={s.id}><a href={s.url}>{s.text}</a> ({s.hours} h)</li>
+                    </template>
+                </ul>
+            </div>
+        </template>
+    </lightning-card>
+</template>

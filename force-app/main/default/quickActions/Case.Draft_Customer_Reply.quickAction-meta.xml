@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<QuickAction xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>AI-02: Opens the Draft Customer Reply flow, which drafts a customer reply with the HES Customer Reply Draft prompt template. Nothing is sent automatically.</description>
+    <flowDefinition>Draft_Customer_Reply</flowDefinition>
+    <label>Draft Customer Reply</label>
+    <optionsCreateFeedItem>false</optionsCreateFeedItem>
+    <type>Flow</type>
+</QuickAction>

@@ -1,0 +1,4 @@
+﻿
+> salesforce-app@1.0.0 lint
+> eslint **/{aura,lwc}/**/*.js
+

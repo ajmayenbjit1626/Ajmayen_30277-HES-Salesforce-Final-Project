@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Is_Scheduled__c</fullName>
-    <defaultValue>true</defaultValue>
+    <defaultValue>false</defaultValue>
     <description>Untick to stop the scheduling engine planning this user.</description>
     <label>Is Scheduled</label>
     <trackFeedHistory>false</trackFeedHistory>

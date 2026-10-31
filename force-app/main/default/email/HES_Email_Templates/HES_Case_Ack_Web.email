@@ -1,0 +1,12 @@
+Hello {!Case.SuppliedName},
+
+Thank you for submitting our online service request form. Your request has been logged as case {!Case.CaseNumber}:
+
+"{!Case.Subject}"
+Equipment type: {!Case.Equipment_Type__c}
+Urgency: {!Case.Priority}
+
+A service dispatcher will review it and plan an engineer if a visit is needed. If anything changes, reply to this email and keep the case number in the subject.
+
+Kind regards,
+Helios Service Desk

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CompactLayout xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Case_Technical_Compact</fullName>
+    <fields>CaseNumber</fields>
+    <fields>Subject</fields>
+    <fields>Status</fields>
+    <fields>Priority</fields>
+    <fields>Coverage_Position__c</fields>
+    <fields>Equipment__c</fields>
+    <fields>Schedule_Status__c</fields>
+    <fields>Planned_Finish__c</fields>
+    <label>Case Technical Compact</label>
+</CompactLayout>

@@ -12,3 +12,6 @@ package.xml
 **/__tests__/**
 
 node_modules/
+
+**/flows/sfdc_default_*
+**/dashboards/Enablement_sfdc*

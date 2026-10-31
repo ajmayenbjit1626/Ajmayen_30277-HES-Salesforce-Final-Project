@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EmailTemplate xmlns="http://soap.sforce.com/2006/04/metadata">
+    <available>true</available>
+    <description>Satisfaction request sent when a case is closed (SVC-05), by the HES Case Satisfaction email alert.</description>
+    <encodingKey>UTF-8</encodingKey>
+    <name>HES Case Satisfaction</name>
+    <style>none</style>
+    <subject>How did we do? Case {!Case.CaseNumber}</subject>
+    <type>text</type>
+    <uiType>Aloha</uiType>
+</EmailTemplate>

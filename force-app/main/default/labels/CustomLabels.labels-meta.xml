@@ -22,7 +22,7 @@
         <language>en_US</language>
         <protected>true</protected>
         <shortDescription>HES Generic Error</shortDescription>
-        <value>Something went wrong while saving. Your administrator has been notified.</value>
+        <value>Something went wrong while saving. Please try again or contact your administrator.</value>
     </labels>
     <labels>
         <fullName>HES_Msg_No_Coverage_Access</fullName>
@@ -40,4 +40,114 @@
         <shortDescription>HES Unscheduled  Message</shortDescription>
         <value>This engineer is not scheduled, so no work has been planned.</value>
     </labels>
+    <labels>
+        <fullName>Coverage_activation_failed</fullName>
+        <categories>HES,SVC-03,Error</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Coverage activation failed</shortDescription>
+        <value>This plan could not be activated because its equipment could not be updated. Please try again or contact your administrator.</value>
+    </labels>
+    <labels>
+        <fullName>HES_Duplicate_case_skill</fullName>
+        <categories>HES,SVC-04,Error</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>HES Duplicate case skill</shortDescription>
+        <value>This skill is already recorded on this case.</value>
+    </labels>
+    <labels>
+        <fullName>HES_Nightly_Rollforward_Failed</fullName>
+        <categories>HES,CAP-06,Error</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Nightly roll-forward failed</shortDescription>
+        <value>Nightly roll-forward of work segments failed. See the task description for details.</value>
+    </labels>
+    <labels>
+        <fullName>HES_Lbl_Needs_Replanning</fullName>
+        <categories>HES,LWC-02</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Needs replanning badge</shortDescription>
+        <value>Needs replanning</value>
+    </labels>
+    <labels>
+        <fullName>HES_Lbl_No_Engineers</fullName>
+        <categories>HES,LWC-01</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>No engineers this week</shortDescription>
+        <value>No engineers to show for this week.</value>
+    </labels>
+    <labels>
+        <fullName>HES_Lbl_No_Work_Planned</fullName>
+        <categories>HES,LWC-02</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>No work planned</shortDescription>
+        <value>No work planned yet.</value>
+    </labels>
+    <labels>
+        <fullName>HES_Lbl_Not_Scheduled</fullName>
+        <categories>HES,LWC-01</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Not scheduled badge</shortDescription>
+        <value>Not scheduled</value>
+    </labels>
+    <labels>
+        <fullName>HES_Lbl_Part_Time</fullName>
+        <categories>HES,LWC-01</categories>
+        <language>en_US</language>
+        <protected>true</protected>
+        <shortDescription>Part-time badge</shortDescription>
+        <value>Part-time</value>
+    </labels>
+
+    <labels>
+        <fullName>HES_AI_Draft_Failed</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>AI-02: shown when the reply draft fails</shortDescription>
+        <value>The reply draft could not be created. Please try again later or write the reply manually.</value>
+    </labels>
+    <labels>
+        <fullName>HES_AI_Draft_Review</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>AI-02: hint above the reply draft</shortDescription>
+        <value>Review and edit this draft, then copy it into your email to the customer. Nothing has been sent.</value>
+    </labels>
+    <labels>
+        <fullName>HES_AI_Draft_Field</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>AI-02: label of the reply draft box</shortDescription>
+        <value>Draft reply</value>
+    </labels>
+     
+         <labels>
+        <fullName>HES_Agent_Case_Created</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>AI-07: agent confirmation after creating a case</shortDescription>
+        <value>Case {0} has been created and sent to the service team.</value>
+    </labels>
+    <labels>
+        <fullName>HES_Err_Generic</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Generic error shown to users when an action fails</shortDescription>
+        <value>Something went wrong. Please try again or contact your administrator.</value>
+    </labels>
+
+        <labels>
+        <fullName>HES_Agent_No_Article</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>AI-04: agent answer when no knowledge article matches</shortDescription>
+        <value>No Helios knowledge article matches this question. I can raise a new case so an engineer can help.</value>
+    </labels>
+
 </CustomLabels>

@@ -1,0 +1,4 @@
+.row { display: grid; grid-template-columns: 6.5rem 1fr auto; gap: 0.5rem; align-items: center; margin-bottom: 0.25rem; }
+.track { background: #f3f3f3; border-radius: 0.25rem; height: 0.75rem; display: block; }
+.bar { display: block; height: 100%; border-radius: 0.25rem; background: #0176d3; }
+.bar_past { background: #a0a0a0; }

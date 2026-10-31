@@ -1,0 +1,83 @@
+﻿=== Test Results
+TEST NAME                                                                              OUTCOME  MESSAGE  RUNTIME (MS)
+ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ  ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ  ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ  ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ
+SearchServiceArticlesActionTest.blankOrStopWordsOnly_returnsMessageWithoutSearching    Pass              33          
+SearchServiceArticlesActionTest.buildSearchTerm_keepsMeaningfulWordsOnly               Pass              4           
+SearchServiceArticlesActionTest.matchingArticle_returnsStepsTitleAndLink               Pass              1548        
+SearchServiceArticlesActionTest.noMatch_returnsLabelMessage                            Pass              21          
+CapacityCalendarControllerTest.casesForDay_returnsThatDaysCases                        Pass              4055        
+CapacityCalendarControllerTest.weekGrid_includesNotScheduledEngineer                   Pass              1708        
+CapacityCalendarControllerTest.weekGrid_showsBookedHoursPerDayAndHoliday               Pass              2255        
+CaseScheduleControllerTest.segmentsForCase_emptyWhenNotPlanned                         Pass              721         
+CaseScheduleControllerTest.segmentsForCase_returnsSegmentsInDateOrder                  Pass              3040        
+ReplyDraftServiceTest.draftReply_aiFailureGivesFriendlyError                           Pass              539         
+ReplyDraftServiceTest.draftReply_emptyResponseGivesFriendlyError                       Pass              216         
+ReplyDraftServiceTest.draftReply_lightningEntryPointConvertsErrors                     Pass              8           
+ReplyDraftServiceTest.draftReply_lightningEntryPointReturnsDraft                       Pass              216         
+ReplyDraftServiceTest.draftReply_nullIdGivesFriendlyError                              Pass              8           
+ReplyDraftServiceTest.draftReply_returnsGeneratedText                                  Pass              212         
+ReplyDraftServiceTest.realGenerator_isTheDefaultAndCallsTheTemplate                    Pass              234         
+CoverageLookupActionTest.bulk_answersEveryRequestWithTwoQueries                        Pass              99          
+CoverageLookupActionTest.expiredPlan_returnsExpiredAndEndDate                          Pass              29          
+CoverageLookupActionTest.noPlan_returnsNotCovered                                      Pass              17          
+CoverageLookupActionTest.unknownSerial_returnsMessage                                  Pass              38          
+CoverageLookupActionTest.userWithoutAccess_getsMessageNotData                          Pass              2456        
+CreateCaseFromConversationActionTest.bulk_fiftyRequestsUseFewQueriesAndOneInsert       Pass              3377        
+CreateCaseFromConversationActionTest.knownSerial_createsTechnicalCaseAndReturnsNumber  Pass              350         
+CreateCaseFromConversationActionTest.unknownSerial_createsNoCase                       Pass              80          
+CreateCaseFromConversationActionTest.userWithoutAccess_createsNoCase                   Pass              2188        
+CaseSchedulingServiceTest.a1_fillAndSpill                                              Pass              3241        
+CaseSchedulingServiceTest.a2_partiallyBookedDay                                        Pass              2876        
+CaseSchedulingServiceTest.a3_weekendAndHoliday                                         Pass              2540        
+CaseSchedulingServiceTest.a4_partTimeEngineer                                          Pass              2294        
+CaseSchedulingServiceTest.a5_reassignmentKeepsHistory                                  Pass              6117        
+CaseSchedulingServiceTest.a6_bulkTwoHundredCases                                       Pass              46344       
+CaseSchedulingServiceTest.a7_unplaceable                                               Pass              4104        
+CaseSchedulingServiceTest.closure_removesOnlyFutureSegments                            Pass              3011        
+CaseSchedulingServiceTest.createdAlreadyAssigned_isPlanned                             Pass              2040        
+CaseSchedulingServiceTest.effortChange_shortensAndExtends                              Pass              3547        
+CaseSchedulingServiceTest.nightlyRollForward_movesStaleSegments                        Pass              3347        
+CaseSchedulingServiceTest.noEffort_assignmentBlocked                                   Pass              2011        
+CaseSchedulingServiceTest.notScheduledEngineer_noSegments                              Pass              2722        
+CaseSchedulingServiceTest.unrelatedEdit_noReplanning                                   Pass              2419        
+
+
+=== Apex Code Coverage by Class
+CLASSES                           PERCENT  UNCOVERED LINES
+ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ  ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ  ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ
+CaseTriggerHandler                100%                    
+CaseSchedulingService             100%                    
+WorkingCalendar                   100%                    
+CaseTrigger                       100%                    
+NightlyRollForwardAction          100%                    
+CapacityCalendarController        100%                    
+CaseScheduleController            100%                    
+ReplyDraftService                 87%      30,32,33,35,59 
+CoverageLookupAction              100%                    
+CreateCaseFromConversationAction  99%      113            
+SearchServiceArticlesAction       100%                    
+
+
+=== Test Setup Time by Test Class for Run 707fj00001EoJrk
+TEST SETUP METHOD NAME                      SETUP TIME
+ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ  ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ
+CoverageLookupActionTest.setup              785       
+CreateCaseFromConversationActionTest.setup  320       
+
+
+=== Test Summary
+NAME                 VALUE                                    
+ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ  ΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇΓöÇ
+Outcome              Passed                                   
+Tests Ran            41                                       
+Pass Rate            100%                                     
+Fail Rate            0%                                       
+Skip Rate            0%                                       
+Test Run Id          707fj00001EoJrk                          
+Test Setup Time      1105 ms                                  
+Test Execution Time  110065 ms                                
+Test Total Time      111170 ms                                
+Org Id               00Dfj00000klaTlEAI                       
+Username             ajmayenfayek1.f678ebd77759@agentforce.com
+Org Wide Coverage    98%                                      
+
