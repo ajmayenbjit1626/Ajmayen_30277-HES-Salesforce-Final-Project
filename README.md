@@ -18,7 +18,7 @@
 </p>
 
 <p align="center">
-   <a href="https://helioservice.netlify.app/">Helios WebSite</a>
+   <a href="https://helioservice.netlify.app/">Helios WebSite</a>🌐
   <a href="#-the-business">Business</a> •
   <a href="#-the-solution-at-a-glance">Solution</a> •
   <a href="#-how-it-works">How it works</a> •
